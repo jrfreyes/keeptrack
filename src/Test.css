@@ -1,0 +1,8 @@
+.Test button{
+    width: 25%;
+}
+
+.HealthData button{
+    width: 30%;
+    display: block;
+}
