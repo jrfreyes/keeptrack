@@ -6,6 +6,9 @@ function formatDescription(description) {
 }
 
 export default function ProjectCard({ project }) {
+    const handleEditClick = (projectBeingEdited) => {
+        console.log(projectBeingEdited);
+    }
     return (
         <div class="card">
             <img src={project.imageUrl} alt={project.name} />
@@ -15,6 +18,10 @@ export default function ProjectCard({ project }) {
                 </h5>
                 <p>{formatDescription(project.description)}</p>
                 <p>Budget : {project.budget.toLocaleString()}</p>
+                <button class="bordered" onClick={() => handleEditClick(project)}>
+                    <span class="icon-edit " />
+                    Edit
+                </button>
             </section>
         </div>
     );
