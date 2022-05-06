@@ -5,21 +5,21 @@ function formatDescription(description) {
     return description.substring(0, 60) + '...';
 }
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, onEdit }) {
     const handleEditClick = (projectBeingEdited) => {
-        console.log(projectBeingEdited);
+        onEdit(projectBeingEdited)
     }
     return (
-        <div class="card">
+        <div className="card">
             <img src={project.imageUrl} alt={project.name} />
-            <section class="section dark">
-                <h5 class="strong">
+            <section className="section dark">
+                <h5 className="strong">
                     <strong>{project.name}</strong>
                 </h5>
                 <p>{formatDescription(project.description)}</p>
                 <p>Budget : {project.budget.toLocaleString()}</p>
-                <button class="bordered" onClick={() => handleEditClick(project)}>
-                    <span class="icon-edit " />
+                <button className="bordered" onClick={() => handleEditClick(project)}>
+                    <span className="icon-edit " />
                     Edit
                 </button>
             </section>
@@ -28,5 +28,6 @@ export default function ProjectCard({ project }) {
 }
 
 ProjectCard.propTypes = {
-    project: PropTypes.instanceOf(Project).isRequired
+    project: PropTypes.instanceOf(Project).isRequired,
+    onEdit: PropTypes.func.isRequired
 };
