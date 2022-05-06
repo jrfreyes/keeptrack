@@ -1,11 +1,25 @@
 import { Project } from "./Project";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
-export default function ProjectForm({project, onSave, onCancel}) {
-    
+export default function ProjectForm({
+        project, 
+        onSave, 
+        onCancel
+    }) {
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSave( new Project({ name: 'Updated Project' }))
+        const formData = new FormData(event.target)
+        const change = Object.fromEntries(
+            Array.from(formData.entries(), (entry) => {
+                console.log(entry, Number(entry[1]))
+                return entry[0] === 'budget' ? (
+                    [entry[0], Number(entry[1])]
+                ) : entry
+            })
+        )
+        let updatedProject = new Project({...project, ...change})
+        onSave(updatedProject)
     }
 
     return (
