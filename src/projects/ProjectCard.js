@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Project } from './Project';
 
 function formatDescription(description) {
-    return description.substring(0, 60) + '...';
+    return description.length > 60 ? description.substring(0, 60) + '...' : description;
 }
 
 export default function ProjectCard({ project, onEdit }) {
