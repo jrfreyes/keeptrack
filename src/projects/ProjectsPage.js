@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MOCK_PROJECTS } from "./MockProjects";
-import { projectApi } from "./projectApi";
+import { projectAPI } from "./projectAPI";
 import { Project } from "./Project"
 import ProjectsList from "./ProjectsList";
 
@@ -14,7 +14,7 @@ export default function ProjectsPage() {
         async function loadProjects() {
             setLoading(true);
             try {
-                const data = await projectApi.get(currentPage);
+                const data = await projectAPI.get(currentPage);
                 setError(null);
                 if (currentPage === 1) { 
                     setProjects(data);
@@ -34,7 +34,7 @@ export default function ProjectsPage() {
         setCurrentPage((currentPage) => currentPage + 1)
     }
     const saveProject = (project) => {
-        projectApi
+        projectAPI
             .put(project)
             .then((updatedProject) => {
                 let updatedProjects = projects.map((p) => {

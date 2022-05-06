@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import HomePage from './home/HomePage';
 import ProjectsPage from './projects/ProjectsPage';
+import ProjectPage from './projects/ProjectPage'
 import { BrowserRouter as Router, NavLink, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:id" element={<ProjectPage />} />
         </Routes>
       </div>
     </Router>

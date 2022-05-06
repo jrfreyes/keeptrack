@@ -40,8 +40,14 @@ function delay(ms) {
     }
 }
 
+function handleError(error) {
+    console.log('log client error ' + error);
+    throw new Error(
+        'There was an error updating the project. Please try again.'
+    );
+}
 
-export const projectApi = {
+export const projectAPI = {
     async get(page = 1, limit = 20) {
         return fetch(`${url}?_page=${page}&_limit=${limit}&_sort=name`)
             .then(checkStatus)
@@ -75,4 +81,10 @@ export const projectApi = {
                 );
             });
     },
+    async find(id) {
+        return fetch(`${url}/${id}`)
+        .then(checkStatus)
+        .then(parseJSON)
+        .catch(handleError);
+    }
 }
