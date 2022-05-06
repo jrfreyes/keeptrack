@@ -1,7 +1,7 @@
 import { Project } from "./Project";
 import PropTypes from "prop-types";
 
-export default function ProjectForm({project}) {
+export default function ProjectForm({project, onCancel}) {
     return (
         <form className="input-group vertical">
             <label htmlFor="name">Project Name</label>
@@ -18,12 +18,19 @@ export default function ProjectForm({project}) {
             <div className="input-group">
                 <button className="primary bordered medium">Save</button>
                 <span></span>
-                <button type="button" className="bordered medium">cancel</button>
+                <button 
+                    type="button" 
+                    className="bordered medium"
+                    onClick={onCancel}
+                >
+                    cancel
+                </button>
             </div>
         </form>
     );
 }
 
 ProjectForm.propTypes = {
-    project: PropTypes.instanceOf(Project)
+    project: PropTypes.instanceOf(Project),
+    onCancel: PropTypes.func.isRequired
 }

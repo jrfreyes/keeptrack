@@ -10,10 +10,17 @@ export default function ProjectsList({ projects }) {
         setProjectBeingEdited(project)
     }
 
+    const cancelEditing = () => {
+        setProjectBeingEdited({})
+    } 
+
     const items = projects.map(project => (   
         <div key={project.id} className="cols-sm">
             {projectBeingEdited === project ? (
-                <ProjectForm project={project} />
+                <ProjectForm 
+                    project={project}
+                    onCancel={cancelEditing} 
+                />
             ) : (
                 <ProjectCard 
                 project={project}
