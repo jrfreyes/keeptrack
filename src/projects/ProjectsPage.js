@@ -3,6 +3,7 @@ import { MOCK_PROJECTS } from "./MockProjects";
 import { projectAPI } from "./projectAPI";
 import { Project } from "./Project"
 import ProjectsList from "./ProjectsList";
+import ProjectListSkeleton from "./ProjectListSkeleton";
 
 export default function ProjectsPage() {
     const [projects, setProjects] = useState([])
@@ -61,6 +62,7 @@ export default function ProjectsPage() {
                 </div>
             </div>
         )}
+        {loading && <ProjectListSkeleton />}
         <ProjectsList 
             projects={projects}
             onSave={saveProject} 
@@ -74,12 +76,6 @@ export default function ProjectsPage() {
                         </button>
                     </div>
                 </div>
-            </div>
-        )}
-        {loading && (
-            <div className="center-page">
-                <span className="spinner primary"></span>
-                <p>Loading...</p>
             </div>
         )}
     </>
