@@ -26,7 +26,7 @@ export function loadProjects(page) {
     }
 }
 
-export function saveProjects(project) {
+export function saveProject(project) {
     return (dispatch) => {
         dispatch({ type: SAVE_PROJECT_REQUEST });
         return projectAPI

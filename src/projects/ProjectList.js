@@ -4,7 +4,7 @@ import { Project } from './Project';
 import ProjectCard from './ProjectCard';
 import ProjectForm from './ProjectForm';
 
-export default function ProjectsList({ projects, onSave }) {
+export default function ProjectList({ projects }) {
     const [projectBeingEdited, setProjectBeingEdited] = useState({})
     const handleEdit = (project) => {
         setProjectBeingEdited(project)
@@ -19,7 +19,6 @@ export default function ProjectsList({ projects, onSave }) {
             {projectBeingEdited === project ? (
                 <ProjectForm 
                     project={project}
-                    onSave={onSave}
                     onCancel={cancelEditing} 
                 />
             ) : (
@@ -34,7 +33,7 @@ export default function ProjectsList({ projects, onSave }) {
     return <div className='row'>{items}</div>;
 }
 
-ProjectsList.propTypes = {
+ProjectList.propTypes = {
     projects: PropTypes.arrayOf(PropTypes.instanceOf(Project)).isRequired,
     onSave: PropTypes.func.isRequired
 }
