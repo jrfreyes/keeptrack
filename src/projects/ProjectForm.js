@@ -1,19 +1,25 @@
 import { Project } from "./Project";
 import PropTypes, { number } from "prop-types";
 import { useState } from "react";
-import { getAllByAltText } from "@testing-library/react";
+import { useSaveProject } from "./projectHooks";
 
 export default function ProjectForm({
-        project: initialProject, 
-        onSave, 
-        onCancel
+        project, 
+        onCancel,
 }) {
-    const [project, setProject] = useState(initialProject)
+    const { mutate: saveProject, isLoading } = useSaveProject();
     const [errors, setErrors] = useState({
         name: '',
         description: '',
         budget: '',
     })
+    
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (isValid()) {
+            saveProject(project)
+        }
+    }
 
     const handleChange = (event) => {
         const {type, name, value, checked} = event.target;
@@ -31,11 +37,6 @@ export default function ProjectForm({
 
         let updatedProject;
 
-        setProject((p) => {
-            updatedProject = new Project({...p, ...change});
-            
-            return updatedProject;
-        })
         setErrors(() => validate(updatedProject))
     }
 
@@ -68,18 +69,13 @@ export default function ProjectForm({
             errors.budget.length === 0 
         )
     }
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (isValid()) {
-            onSave(project);
-        }
-    }
 
     return (
         <form 
             className="input-group vertical"
             onSubmit={handleSubmit}
         >
+            {isLoading && <span className="toast">Saving...</span>}
             <label htmlFor="name">Project Name</label>
             <input 
                 type="text" 
@@ -145,6 +141,5 @@ export default function ProjectForm({
 
 ProjectForm.propTypes = {
     project: PropTypes.instanceOf(Project),
-    onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired
 }

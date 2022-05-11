@@ -1,58 +1,24 @@
 import { useState, useEffect } from "react";
 import { projectAPI } from "./projectAPI";
 import { Project } from "./Project";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 export function useProjects() {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(undefined);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [saving, setSaving] = useState(false);
-  const [savingError, setSavingError] = useState(undefined);
-
-  useEffect(() => {
-    async function loadProjects() {
-      setLoading(true);
-      try {
-        const data = await projectAPI.get(currentPage);
-        if (currentPage === 1) {
-          setProjects(data);
-        } else {
-          setProjects((projects) => [...projects, ...data]);
-        }
-      } catch (e) {
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
+  const [page, setPage] = useState(0);
+  let queryInfo = useQuery(
+    ["projects", page],
+    () => projectAPI.get(page + 1),
+    {
+      keepPreviousData: true,
     }
-    loadProjects();
-  }, [currentPage]);
+  )
+  console.log(queryInfo);
+  return { ...queryInfo, page, setPage }
+}
 
-  const saveProject = (project) => {
-    setSaving(true);
-    projectAPI
-      .put(project)
-      .then((updatedProject) => {
-        let updatedProjects = projects.map((p) => {
-          return p.id === project.id ? new Project(updatedProject) : p;
-        });
-        setProjects(updatedProjects);
-      })
-      .catch((e) => {
-        setSavingError(e.message);
-      })
-      .finally(() => setSaving(false));
-  };
-
-  return {
-    projects,
-    loading,
-    error,
-    currentPage,
-    setCurrentPage,
-    saving,
-    savingError,
-    saveProject,
-  };
+export function useSaveProject() {
+  const queryClient = useQueryClient();
+  return useMutation((project) => projectAPI.put(project), {
+    onSuccess: () => queryClient.invalidateQueries('projects'),
+  });
 }

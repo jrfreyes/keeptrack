@@ -48,9 +48,9 @@ function handleError(error) {
 }
 
 export const projectAPI = {
-    async get(page = 1, limit = 20) {
+    async get(page = 1, limit = 10) {
         return fetch(`${url}?_page=${page}&_limit=${limit}&_sort=name`)
-            .then(delay(2000))
+            .then(delay(1000))
             .then(checkStatus)
             .then(parseJSON)
             .then((projects) => {
