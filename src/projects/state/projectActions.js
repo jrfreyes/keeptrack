@@ -4,9 +4,9 @@ import {
     LOAD_PROJECTS_FAILURE,
     LOAD_PROJECTS_REQUEST,
     LOAD_PROJECTS_SUCCESS,
-    SAVE_PROJECTS_FAILURE,
-    SAVE_PROJECTS_REQUEST,
-    SAVE_PROJECTS_SUCCESS,
+    SAVE_PROJECT_FAILURE,
+    SAVE_PROJECT_REQUEST,
+    SAVE_PROJECT_SUCCESS,
 } from './projectTypes'
 
 export function loadProjects(page) {
@@ -28,17 +28,17 @@ export function loadProjects(page) {
 
 export function saveProject(project) {
     return (dispatch) => {
-        dispatch({ type: SAVE_PROJECTS_REQUEST });
+        dispatch({ type: SAVE_PROJECT_REQUEST });
         return projectAPI
             .put(project)
             .then((data) => {
                 dispatch({
-                    type: SAVE_PROJECTS_SUCCESS,
+                    type: SAVE_PROJECT_SUCCESS,
                     payload: data,
                 });
             })
             .catch((error) => {
-                dispatch({ type: SAVE_PROJECTS_FAILURE, paySAVE: error})
+                dispatch({ type: SAVE_PROJECT_FAILURE, paySAVE: error})
             })
     }
 }

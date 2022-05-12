@@ -4,12 +4,12 @@ import {
     LOAD_PROJECTS_REQUEST,
     LOAD_PROJECTS_SUCCESS,
     LOAD_PROJECTS_FAILURE,
-    SAVE_PROJECTS_REQUEST,
-    SAVE_PROJECTS_SUCCESS,
-    SAVE_PROJECTS_FAILURE,
-    DELETE_PROJECTS_REQUEST,
-    DELETE_PROJECTS_SUCCESS,
-    DELETE_PROJECTS_FAILURE,
+    SAVE_PROJECT_REQUEST,
+    SAVE_PROJECT_SUCCESS,
+    SAVE_PROJECT_FAILURE,
+    DELETE_PROJECT_REQUEST,
+    DELETE_PROJECT_SUCCESS,
+    DELETE_PROJECT_FAILURE,
 } from './projectTypes';
 
 export const initialProjectState = {
@@ -40,9 +40,9 @@ export function projectReducer(state = initialProjectState, action) {
             };
         case LOAD_PROJECTS_FAILURE:
             return { ...state, loading: false, error: action.payload.message };
-        case SAVE_PROJECTS_REQUEST:
+        case SAVE_PROJECT_REQUEST:
             return { ...state };
-        case SAVE_PROJECTS_SUCCESS:
+        case SAVE_PROJECT_SUCCESS:
             let updatedProject = new Project(action.payload);
             if (updatedProject.isNew()) {
                 return {
@@ -59,18 +59,18 @@ export function projectReducer(state = initialProjectState, action) {
                     }),
                 };
             }
-        case SAVE_PROJECTS_FAILURE:
+        case SAVE_PROJECT_FAILURE:
             return { ...state, error: action.payload.message };
-        case DELETE_PROJECTS_REQUEST:
+        case DELETE_PROJECT_REQUEST:
             return { ...state };
-        case DELETE_PROJECTS_SUCCESS:
+        case DELETE_PROJECT_SUCCESS:
             return {
                 ...state,
                 projects: state.projects.filter(
                     (project) => project.id !== action.payload.id
                 ),
             };
-        case DELETE_PROJECTS_FAILURE:
+        case DELETE_PROJECT_FAILURE:
             return { ...state, error: action.payload.message };
         default:
             return state;
