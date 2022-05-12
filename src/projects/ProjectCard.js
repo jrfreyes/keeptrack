@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Project } from './Project';
 
 function formatDescription(description) {
-    return description.length > 60 ? description.substring(0, 60) + '...' : description;
+    // return description.length > 60 ? description.substring(0, 60) + '...' : description;
+    return description.substring(0, 60) + '...';
 }
 
 export default function ProjectCard({ project, onEdit }) {
@@ -21,12 +22,16 @@ export default function ProjectCard({ project, onEdit }) {
                     <p>{formatDescription(project.description)}</p>
                     <p>Budget : {project.budget.toLocaleString()}</p>
                 </Link>
-                <button className="bordered" onClick={() => handleEditClick(project)}>
+                <button
+                    aria-label={`edit ${project.name}`}
+                    className="bordered" onClick={
+                        () => { handleEditClick(project); }
+                    }>
                     <span className="icon-edit " />
                     Edit
                 </button>
             </section>
-        </div>
+        </div >
     );
 }
 

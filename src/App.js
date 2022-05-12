@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import HomePage from './home/HomePage';
 import ProjectsPage from './projects/ProjectsPage';
 import ProjectPage from './projects/ProjectPage'
-import { BrowserRouter as Router, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 function App() {

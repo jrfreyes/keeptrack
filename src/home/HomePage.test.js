@@ -1,9 +1,9 @@
 import HomePage from "./HomePage"
-import renderer from 'react-test-renderer';
+import TestRenderer from 'react-test-renderer';
 
 describe('<HomePage />', () => {
     test('snapshot', () => {
-        const tree = renderer.create(<HomePage />).toJSON();
+        const tree = TestRenderer.create(<HomePage />).toJSON();
         expect(tree).toMatchSnapshot();
     })
 })

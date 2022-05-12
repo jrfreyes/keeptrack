@@ -1,5 +1,5 @@
 import { Project } from "./Project";
-import PropTypes, { number } from "prop-types";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { saveProject } from "./state/projectActions";
@@ -78,6 +78,8 @@ export default function ProjectForm({
     
     return (
         <form 
+            aria-label="Edit a Project"
+            name="projectForm"
             className="input-group vertical"
             onSubmit={handleSubmit}
         >
